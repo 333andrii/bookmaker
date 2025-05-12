@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "workspaces": [
-    "apps/odds-getter",
-    "apps/g-sheet"
+    "apps/*"
   ],
   "scripts": {
     "start:odds-getter": "./node_modules/.bin/nest start odds-getter",

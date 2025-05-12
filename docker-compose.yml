@@ -10,7 +10,7 @@ services:
       - micro_net
 
   postgres:
-    image: arm64v8/postgres:latest
+    image: postgres:latest
     restart: always
     environment:
       POSTGRES_USER: user
