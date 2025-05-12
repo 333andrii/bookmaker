@@ -20,8 +20,6 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@nestjs/schedule": "^6.0.0",
-    "@types/cron": "^2.4.3"
   },
   "jest": {
     "moduleFileExtensions": [
