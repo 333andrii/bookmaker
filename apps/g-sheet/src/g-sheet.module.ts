@@ -10,6 +10,7 @@ import { MarketDbEntity } from '../../../common/entities/market.dto';
 import { BetDbEntity } from '../../../common/entities/bet.dto';
 import { DbBookmakerModule } from '../../../common/db-bookmaker/db-bookmaker.module';
 import * as dotenv from 'dotenv';
+import * as process from 'process';
 dotenv.config();
 
 @Module({
@@ -18,7 +19,7 @@ dotenv.config();
     EventAdapterModule.forTransport(),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
+      host: process.env.DB_POSTGRES_HOST as string,
       port: 5432,
       username: process.env.DB_POSTGRES_USER as string,
       password: process.env.DB_POSTGRES_PASS as string,

@@ -26,7 +26,7 @@ dotenv.config();
     DbBookmakerModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
+      host: process.env.DB_POSTGRES_HOST,
       port: 5432,
       username: process.env.DB_POSTGRES_USER as string,
       password: process.env.DB_POSTGRES_PASS as string,
