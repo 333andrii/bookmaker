@@ -1,0 +1,90 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - '6379:6379'
+    networks:
+      - micro_net
+
+  postgres:
+    image: arm64v8/postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: betting
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - micro_net
+
+  odds-getter:
+    build:
+      context: .
+      dockerfile: apps/odds-getter/Dockerfile
+    container_name: odds-getter
+    image: odds-getter
+    depends_on:
+      - redis
+      - postgres
+    networks:
+      - micro_net
+
+  g-sheet:
+    build:
+      context: .
+      dockerfile: apps/g-sheet/Dockerfile
+    container_name: g-sheet
+    image: g-sheet
+    depends_on:
+      - redis
+      - postgres
+    networks:
+      - micro_net
+
+  gateway:
+    build:
+      context: .
+      dockerfile: apps/gateway/Dockerfile
+    container_name: gateway
+    image: gateway
+    depends_on:
+      - redis
+    ports:
+      - '80:80'
+    networks:
+      - micro_net
+
+  place-bet:
+    build:
+      context: .
+      dockerfile: apps/place-bet/Dockerfile
+    container_name: place-bet
+    image: gateway
+    depends_on:
+      - redis
+      - postgres
+    networks:
+      - micro_net
+
+  web-redis-cli:
+    image: redis/redisinsight:latest
+    container_name: redisinsight
+    ports:
+      - '5540:5540'
+    networks:
+      - micro_net
+    depends_on:
+      - redis
+
+networks:
+  micro_net:
+    driver: bridge
+
+volumes:
+  pgdata:

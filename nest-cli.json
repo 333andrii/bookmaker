@@ -1,0 +1,53 @@
+{
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "/",
+  "monorepo": true,
+  "compilerOptions": {
+    "tsConfigPath": "tsconfig.build.json",
+    "assets": [],
+    "watchAssets": true,
+    "webpack": true
+  },
+  "projects": {
+    "odds-getter": {
+      "type": "application",
+      "root": "apps/odds-getter/src",
+      "entryFile": "main",
+      "sourceRoot": "apps/odds-getter/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/odds-getter/tsconfig.json",
+        "webpack": true
+      }
+    },
+    "g-sheet": {
+      "type": "application",
+      "root": "apps/g-sheet/src",
+      "entryFile": "main",
+      "sourceRoot": "apps/g-sheet/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/g-sheet/tsconfig.json",
+        "webpack": true
+      }
+    },
+    "place-bet": {
+      "type": "application",
+      "root": "apps/place-bet/src",
+      "entryFile": "main",
+      "sourceRoot": "apps/place-bet/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/place-bet/tsconfig.json",
+        "webpack": true
+      }
+    },
+    "gateway": {
+      "type": "application",
+      "root": "apps/gateway/src",
+      "entryFile": "main",
+      "sourceRoot": "apps/gateway/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/gateway/tsconfig.json",
+        "webpack": true
+      }
+    }
+  }
+}
