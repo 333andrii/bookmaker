@@ -31,6 +31,12 @@ export class GoogleSpreadsheetClient {
     values: string[][],
   ): Promise<any> {
     await this._init;
+
+    await this.sheetsService.spreadsheets.values.clear({
+      spreadsheetId: this.spreadsheetId,
+      range: `${sheetName}!A2:G`, //I know it's hardcoded and can be changed
+    });
+
     await this.sheetsService.spreadsheets.values.update({
       spreadsheetId: this.spreadsheetId,
       range: `${sheetName}!${cell}`,

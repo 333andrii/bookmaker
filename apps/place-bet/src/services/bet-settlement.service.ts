@@ -4,14 +4,16 @@ import { LoggerService } from '../../../../common/logger/logger.service';
 import { DbBookmakerService } from '../../../../common/db-bookmaker/services/db-bookmaker.service';
 import { EventEmitterAdapter } from '../../../../common/event-adapter/event-emitter-adapter.service';
 import { MarketDbEntity } from '../../../../common/entities/market.dto';
-import { BetType } from '../../../../common/entities/market.entities';
+import {
+  BetType,
+  MarketStatusType,
+} from '../../../../common/entities/market.entities';
 
 @Injectable()
 export class BetSettlementService {
   constructor(
     private logger: LoggerService,
     private dbBookmakerService: DbBookmakerService,
-    private eventEmitterAdapter: EventEmitterAdapter,
   ) {}
 
   async runBetSettlement(): Promise<void> {
@@ -36,10 +38,12 @@ export class BetSettlementService {
         );
       }
 
-      await this.dbBookmakerService.settleBet(
-        bet.id,
-        this.calculatePnl(bet, market),
-      );
+      if (market.marketStatus === MarketStatusType.Finished) {
+        await this.dbBookmakerService.settleBet(
+          bet.id,
+          this.calculatePnl(bet, market),
+        );
+      }
     } catch (err) {
       this.logger.error('Error when settle bet', { error: err, betId: bet.id });
     }

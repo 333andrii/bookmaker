@@ -55,7 +55,7 @@ export class GoogleSpreadsheetModifier {
           stake?.toString(),
           settled ? 'Settled' : 'Open',
           price?.toString(),
-          pnl?.toString(),
+          pnl?.toString() || '',
         ];
       }),
     );
